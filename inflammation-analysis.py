@@ -37,7 +37,7 @@ if __name__ == "__main__":
         'infiles',
         nargs='+',
         help='Input CSV(s) containing inflammation series for each patient')
-    
+
     args = parser.parse_args()
 
     main(args)
