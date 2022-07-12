@@ -2,6 +2,7 @@
 
 import numpy as np
 import numpy.testing as npt
+import pytest
 
 
 def test_daily_mean_zeros():
@@ -29,3 +30,46 @@ def test_daily_mean_integers():
     # Need to use Numpy testing functions to compare arrays
     npt.assert_array_equal(daily_mean(test_input), test_result)
 
+
+def test_daily_max_value():
+    """
+    Test that the maximum function identifies the highest entry
+    in an array.
+    """
+    from inflammation.models import daily_max
+
+    test_input = np.ones((3,2), dtype='int')
+    test_result = [1, 1]
+
+    npt.assert_array_equal(daily_max(test_input), test_result)
+
+    test_result = [1, 10]
+    test_input[1,:] = test_result
+
+    npt.assert_array_equal(daily_max(test_input), test_result)
+
+
+def test_daily_min_value():
+    """
+    Test that the minimum function correctly identifies the lowest
+    entry in an array.
+    """
+    from inflammation.models import daily_min
+
+    test_input = np.ones((3,2), dtype='int')
+    test_result = [1, 1]
+
+    npt.assert_array_equal(daily_min(test_input), test_result)
+
+    test_result = [1, -10]
+    test_input[1, :] = test_result
+
+    npt.assert_array_equal(daily_min(test_input), test_result)
+
+
+def test_daily_min_string():
+    """Test for TypeError when passing strings"""
+    from inflammation.models import daily_min
+
+    with pytest.raises(TypeError):
+        error_expected = daily_min([['Hello', 'there'], ['General', 'Kenobi']])
