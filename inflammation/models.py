@@ -50,8 +50,15 @@ def daily_min(data):
 
 def patient_normalise(data):
     """Normalise patient data from a 2D inflammation data array."""
+    print(data, type(data), data.dtype)
+    if not isinstance(data, np.ndarray):
+        raise TypeError('Inflammation data should be a numpy array')
+    if not (data.dtype == np.int64):
+        raise ValueError('Inflammation data should be a numpy array of integer values')
     if np.any(data < 0):
         raise ValueError('Inflammation values should not be negative')
+    if data.shape[1] != 3:
+        raise ValueError('Inflammation data should have 3 columns')
     max_data = np.max(data, axis=1)
     with np.errstate(invalid='ignore', divide='ignore'):
         normalised = data / max_data[:, np.newaxis]
