@@ -1,7 +1,6 @@
 """Module containing code for plotting inflammation data."""
 
-from matplotlib import pyplot as plt
-import numpy as np
+from inflammation import serializers
 
 
 def visualize(data_dict):
@@ -34,3 +33,9 @@ def display_patient_record(patient):
             print(datum)
     else:
         print('No observations made so far')
+
+
+def serialize_patient_record(patient, output_file):
+    """Output patient data in JSON format"""
+
+    serializers.PatientJSONSerializer.save([patient], output_file)

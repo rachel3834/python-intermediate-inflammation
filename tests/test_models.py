@@ -122,7 +122,7 @@ def test_patient_normalise(test, expected, expect_raises):
 def test_person(test, expected):
     """Test that a Person class is instantiated with the right attributes"""
 
-    from hospital.models import Person
+    from inflammation.models import Person
 
     assert(Person(test).name == expected)
 
@@ -136,7 +136,7 @@ def test_person(test, expected):
 def test_patient(test, expected):
     """Test that a Person class is instantiated with the right attributes"""
 
-    from hospital.models import Patient
+    from inflammation.models import Patient
 
     assert (Patient(test).name == expected)
 
@@ -150,7 +150,7 @@ def test_patient(test, expected):
 def test_doctor(test, expected):
     """Test that a Person class is instantiated with the right attributes"""
 
-    from hospital.models import Doctor
+    from inflammation.models import Doctor
 
     assert (Doctor(test[0]).name == expected[0])
     assert (Doctor(test[0]).title == expected[1])
@@ -165,7 +165,7 @@ def test_doctor(test, expected):
 def test_patient_group(test):
     """Test the instantiation of a group of patients"""
 
-    from hospital.models import PatientGroup, Patient
+    from inflammation.models import PatientGroup, Patient
 
     patients = []
     for name in test:

@@ -73,8 +73,14 @@ class Observation:
         self.value = value
 
     def __str__(self):
-        return self.value
+        return 'Day '+str(self.day)+': '+str(self.value)
 
+    def __eq__(self, observation2):
+        if (self.day == observation2.day
+            and self.value == observation2.value):
+            return True
+        else:
+            return False
 
 class Person:
     def __init__(self, name):
@@ -104,6 +110,19 @@ class Patient(Person):
         self.observations.append(new_obs)
 
         return new_obs
+
+    def __eq__(self, patient2):
+        if self.name == patient2.name:
+            same_obs = []
+            for datum1,datum2 in zip(self.observations, patient2.observations):
+                same_obs.append( (datum1 == datum2) )
+            if False in same_obs:
+                return False
+            else:
+                return True
+        else:
+            return False
+
 
 class Doctor(Person):
     def __init__(self, name):
