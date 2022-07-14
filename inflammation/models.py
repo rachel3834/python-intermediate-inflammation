@@ -66,3 +66,56 @@ def patient_normalise(data):
     normalised[normalised < 0] = 0
     return normalised
 
+
+class Observation:
+    def __init__(self, day, value):
+        self.day = day
+        self.value = value
+
+    def __str__(self):
+        return self.value
+
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+
+class Patient(Person):
+    def __init__(self, name, observations=None):
+        super().__init__(name)
+        self.observations = []
+
+        if observations is not None:
+            self.observations = observations
+
+    def add_observation(self, value, day=None):
+        if day is None:
+            if len(self.observations) > 0:
+                day = self.observations[-1].day + 1
+            else:
+                day = 0
+
+        new_obs = Observation(day, value)
+
+        self.observations.append(new_obs)
+
+        return new_obs
+
+class Doctor(Person):
+    def __init__(self, name):
+        super().__init__(name)
+        self.title = 'Dr'
+        self.patient_list = []
+
+    def __str__(self):
+        return self.title+'.'+self.name
+
+
+class PatientGroup:
+    def __init__(self, patients=[]):
+        self.patients = patients
+        self.control = False

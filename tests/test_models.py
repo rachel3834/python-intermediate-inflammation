@@ -110,3 +110,66 @@ def test_patient_normalise(test, expected, expect_raises):
             npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
     else:
         npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+
+
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        (['Terry Prachett'],['Terry Prachett']),
+        (['Andy McNab'],['Andy McNab'])
+    ])
+def test_person(test, expected):
+    """Test that a Person class is instantiated with the right attributes"""
+
+    from hospital.models import Person
+
+    assert(Person(test).name == expected)
+
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        (['Terry Prachett'], ['Terry Prachett']),
+        (['Andy McNab'], ['Andy McNab'])
+    ])
+def test_patient(test, expected):
+    """Test that a Person class is instantiated with the right attributes"""
+
+    from hospital.models import Patient
+
+    assert (Patient(test).name == expected)
+
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        (['Terry Prachett', 'Dr', []], ['Terry Prachett', 'Dr', []]),
+        (['Andy McNab', 'Dr', []], ['Andy McNab', 'Dr', []])
+    ])
+def test_doctor(test, expected):
+    """Test that a Person class is instantiated with the right attributes"""
+
+    from hospital.models import Doctor
+
+    assert (Doctor(test[0]).name == expected[0])
+    assert (Doctor(test[0]).title == expected[1])
+    assert (Doctor(test[0]).patient_list == expected[2])
+
+
+@pytest.mark.parametrize(
+    "test",
+    [
+        (['Terry Prachett', 'Douglas Adams', 'Ursula Le Guin']),
+    ])
+def test_patient_group(test):
+    """Test the instantiation of a group of patients"""
+
+    from hospital.models import PatientGroup, Patient
+
+    patients = []
+    for name in test:
+        patients.append(Patient(name))
+
+    assert (PatientGroup(patients).patients == patients)
+    assert (type(PatientGroup(patients).control) == bool)
