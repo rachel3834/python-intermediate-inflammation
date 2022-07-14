@@ -53,7 +53,7 @@ def patient_normalise(data):
     print(data, type(data), data.dtype)
     if not isinstance(data, np.ndarray):
         raise TypeError('Inflammation data should be a numpy array')
-    if not (data.dtype == np.int64):
+    if not (data.dtype == np.int64 or data.dtype == np.int32):
         raise ValueError('Inflammation data should be a numpy array of integer values')
     if np.any(data < 0):
         raise ValueError('Inflammation values should not be negative')
